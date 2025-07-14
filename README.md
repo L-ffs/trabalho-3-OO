@@ -11,3 +11,5 @@ Json
 aproveitar MUITO de bibliotecas
 usuarios sao pessoas reais, eles precisam entrar no sistema e realizar açoes para girar o programa
 a interface grafica deve primeiro pedir para logar e apos isso mostrar as açoes(metodos) --<<
+clientes sao apenas String- nome unico
+
