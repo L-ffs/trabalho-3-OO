@@ -6,7 +6,7 @@ public class Validar {
 
     public static boolean senha(String senha) {
 
-        return senha.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,}$");
+        return senha != null && senha.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,}$");
     }
 
     public static boolean email(String email) {

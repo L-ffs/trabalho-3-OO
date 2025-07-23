@@ -12,7 +12,7 @@ public class App {
 
         System.out.println( "\nHello World!\n" );
 
-        System.out.println("" == null);
+        
 
         
     }
