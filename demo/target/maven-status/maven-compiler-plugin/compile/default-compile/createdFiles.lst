@@ -1,1 +1,9 @@
+com/sistema/contrato/Contrato_venda.class
+com/sistema/contrato/Contrato_compra.class
 com/sistema/App.class
+com/sistema/pessoa/Vendedor.class
+com/sistema/validadores/Validar.class
+com/sistema/pessoa/Dono.class
+com/sistema/pessoa/Gerente.class
+com/sistema/franquia/Franquia.class
+com/sistema/pessoa/Pessoa.class
