@@ -1,8 +1,11 @@
 package com.sistema;
 import java.io.FileWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.sistema.contrato.GsonUtil;
 import com.sistema.pessoa.Dono;
 
 
@@ -16,20 +19,24 @@ public class App {
 
         System.out.println( "\n\n" );
         
-        Gson gson = new Gson();
-        Dono dono = new Dono("joao", "2981298342", 30, "joao@gmail.com", "1234");
-        String donoJson = gson.toJson(dono);
-        System.out.println("Dono JSON: " + donoJson);
+        
+        Path path= Paths.get("").toAbsolutePath();
+        path= path.resolve(Paths.get("demo", "src", "main", "arquivosPermanencia"));
+        System.out.println("path: " + path);
 
-        
-        
-        try(FileWriter fileWriter = new FileWriter("dono.json")) {
-            fileWriter.write(donoJson);
-        } catch (Exception e) {
-            e.printStackTrace();
+        GsonUtil gsonUtil = new GsonUtil();
+        Dono dono= null;
+        try{
+        dono= GsonUtil.carregarDonoObjeto(path.resolve("dono.json"));
+        }catch(Exception e){
+            System.out.println("Erro ao carregar o dono: " + e.getMessage());
         }
+        dono.indentificador_pessoa();
 
         System.out.println( "\n\n" );
+        
+        
+
         
 
         

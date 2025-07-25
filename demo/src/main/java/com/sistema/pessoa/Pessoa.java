@@ -17,4 +17,36 @@ public class Pessoa {
         this.senha = senha;
     }
 
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+
+    public void setIdade(int idade) {
+        this.idade = idade;
+    }
+
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public void indentificador_pessoa() {
+        System.out.println("Nome: " + nome);
+        System.out.println("CPF: " + cpf);
+        System.out.println("Idade: " + idade);
+        System.out.println("Email: " + email);
+        System.out.println("Senha: " + senha);
+    }
 }
