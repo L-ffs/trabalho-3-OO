@@ -8,7 +8,7 @@ public class Pessoa {
     private String email;
     private String senha;
 
-    
+    public Pessoa(){}; //construtor vazio para Gson
     public Pessoa(String nome, String cpf, int idade, String email, String senha) {
         this.nome = nome;
         this.cpf = cpf;
@@ -18,29 +18,11 @@ public class Pessoa {
     }
 
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
-
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
+    public void setNome(String nome) {this.nome = nome;}
+    public void setCpf(String cpf) {this.cpf = cpf;}
+    public void setIdade(int idade) {this.idade = idade;}
+    public void setEmail(String email) {this.email = email;}
+    public void setSenha(String senha) {this.senha = senha;}
 
     public void indentificador_pessoa() {
         System.out.println("Nome: " + nome);

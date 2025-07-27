@@ -1,4 +1,4 @@
-package com.sistema.contrato;
+package com.sistema.graficos;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
@@ -15,6 +15,9 @@ public class GsonUtil {
         .serializeNulls()
         .create();
 
+
+
+    // Métodos para permanência do objeto Filial
     public static void salvarFiliaisJSON(Path caminhoArquivo, List<Filial> filiais) throws IOException {
         Objects.requireNonNull(caminhoArquivo, "Caminho do arquivo não pode ser nulo");
         Objects.requireNonNull(filiais, "Lista de filiais não pode ser nula");
@@ -26,7 +29,7 @@ public class GsonUtil {
         }
     }
 
-    public static List<Filial> carregarFiliaisObjeto(Path caminhoArquivo) throws IOException {
+    public static ArrayList<Filial> carregarFiliaisObjeto(Path caminhoArquivo) throws IOException {
         Objects.requireNonNull(caminhoArquivo, "Caminho do arquivo não pode ser nulo");
         
         if (!Files.exists(caminhoArquivo)) {
@@ -41,19 +44,8 @@ public class GsonUtil {
         }
     }
     
-    public static String paraJson(List<Filial> filiais) {
-        return gson.toJson(filiais);
-    }
     
-    public static List<Filial> deJson(String json) throws JsonSyntaxException {
-
-        if (json == null || json.trim().isEmpty()) {
-            throw new JsonSyntaxException("JSON não pode ser nulo ou vazio");
-        }
-        Type filialListType = new TypeToken<List<Filial>>(){}.getType();
-        return gson.fromJson(json, filialListType);
-    }
-
+    //metodos pra permanencia do objeto dono
     public static void salvarDonoJSON(Path caminhoArquivo, Dono dono) throws IOException {
         Objects.requireNonNull(caminhoArquivo, "Caminho do arquivo não pode ser nulo");
         Objects.requireNonNull(dono, "Objeto Dono não pode ser nulo");
