@@ -18,8 +18,8 @@ public class App {
 
         System.out.println( "\n\n" );
         
-        Grafico grafico = new Grafico();
-        grafico.tela_login_principal();
+        Gerenciador_sistema sistema = new Gerenciador_sistema();
+        sistema.Start_sistema(); //inicia o sistema
         
 
         System.out.println( "\n\n" );

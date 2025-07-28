@@ -53,5 +53,20 @@ public class Franquia {
         return false;
     }
 
+    public Pessoa getPessoaPorEmail(String email) {
+        for (Pessoa funcionario : funcionarios) {
+            if (funcionario.getEmail().equals(email)) {
+                return funcionario;
+            }
+        }
+        return null; // Retorna null se não encontrar
+    }
+
+    
+        
+
+
+
+
     
 }

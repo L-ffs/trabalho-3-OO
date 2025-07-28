@@ -38,6 +38,7 @@ public class Gerenciador_sistema {
         }catch (Exception e) {
             System.out.println("Erro inesperado ao carregar os dados da franquia: " + e.getMessage());
         }
+        franquia.atualiza_funcionarios(); 
 
         //inicia os graficos
         graficos = new Grafico();

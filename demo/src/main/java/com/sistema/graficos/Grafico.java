@@ -1,7 +1,9 @@
 package com.sistema.graficos;
 
 import com.sistema.Gerenciador_sistema;
+import com.sistema.graficos.User;
 import com.sistema.pessoa.Pessoa;
+
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -18,11 +20,13 @@ public class Grafico {
     JFrame frame;
     int tela_X;
     int tela_y;
+    User usuario; //variavel para armazenar o usuario logado
     
 
     public Grafico() {
         tela_X = 1280;
         tela_y = 960;
+        usuario= null;
         frame= new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
@@ -57,27 +61,13 @@ public class Grafico {
         panel.add(campoSenha);
         panel.add(botaoLogin);
         frame.add(panel);
-
-        campoEmail.getDocument().addDocumentListener(new DocumentListener() {
-            public void changedUpdate(DocumentEvent e) { validar(); }
-            public void removeUpdate(DocumentEvent e) { validar(); }
-            public void insertUpdate(DocumentEvent e) { validar(); }
-            private void validar() {
-                boolean emailExiste= sistema.getFranquia().Email_existe(campoEmail.getText());
-                botaoLogin.setEnabled(emailExiste);
-            }
-        });
+        
+        
         botaoLogin.addActionListener(e -> {
             String email = campoEmail.getText();
             String senha = new String(campoSenha.getPassword());
-            
-
-            if (usuario != null) {
-                // Aqui você pode chamar o método para abrir a tela do usuário
-                System.out.println("Login bem-sucedido para: " + usuario.getNome());
-                // Exemplo: abrirTelaUsuario(usuario);
-            } else {
-                System.out.println("Email ou senha inválidos.");
+            if (validadorLogin(email, senha, sistema)) {
+                //proxima tela
             }
         });
 
@@ -105,5 +95,23 @@ public class Grafico {
         int valor= (eixo == 'x' ? tela_X : tela_y);
         return (int) (valor * (percent / 100));
     }   
+
+    public boolean validadorLogin(String email, String senha, Gerenciador_sistema sistema) {
+        System.out.println("enrtou na validadorLogin");
+        Pessoa pessoa = null;
+        boolean emailExiste= sistema.getFranquia().Email_existe(email);
+        pessoa= emailExiste ? sistema.getFranquia().getPessoaPorEmail(email) : null;
+        boolean logavel= pessoa != null && pessoa.getSenha().equals(senha);
+
+        if (logavel) {
+                usuario = new User(pessoa, null, sistema.getFranquia());
+                usuario.achar_filial();
+                System.out.println("Login bem-sucedido para: " + email);
+                return true;
+            }
+            return false;
+        }
+    
+        
 
 }
