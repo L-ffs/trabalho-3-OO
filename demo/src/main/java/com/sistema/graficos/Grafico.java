@@ -1,11 +1,17 @@
 package com.sistema.graficos;
 
+import com.sistema.Gerenciador_sistema;
+import com.sistema.pessoa.Pessoa;
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class Grafico {
 
@@ -26,7 +32,7 @@ public class Grafico {
 
     }
 
-    public void tela_login_principal() {
+    public void tela_login_principal(Gerenciador_sistema sistema) {
         limpar_tela();
         
         frame.setTitle("Tela de Login");
@@ -52,6 +58,28 @@ public class Grafico {
         panel.add(botaoLogin);
         frame.add(panel);
 
+        campoEmail.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) { validar(); }
+            public void removeUpdate(DocumentEvent e) { validar(); }
+            public void insertUpdate(DocumentEvent e) { validar(); }
+            private void validar() {
+                boolean emailExiste= sistema.getFranquia().Email_existe(campoEmail.getText());
+                botaoLogin.setEnabled(emailExiste);
+            }
+        });
+        botaoLogin.addActionListener(e -> {
+            String email = campoEmail.getText();
+            String senha = new String(campoSenha.getPassword());
+            
+
+            if (usuario != null) {
+                // Aqui você pode chamar o método para abrir a tela do usuário
+                System.out.println("Login bem-sucedido para: " + usuario.getNome());
+                // Exemplo: abrirTelaUsuario(usuario);
+            } else {
+                System.out.println("Email ou senha inválidos.");
+            }
+        });
 
         atualizar_tela();
     }

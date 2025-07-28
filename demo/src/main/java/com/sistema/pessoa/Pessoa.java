@@ -23,7 +23,14 @@ public class Pessoa {
     public void setIdade(int idade) {this.idade = idade;}
     public void setEmail(String email) {this.email = email;}
     public void setSenha(String senha) {this.senha = senha;}
+    //
+    public String getNome() {return nome;}
+    public String getCpf() {return cpf;}
+    public int getIdade() {return idade;}
+    public String getEmail() {return email;}
+    public String getSenha() {return senha;}
 
+    
     public void indentificador_pessoa() {
         System.out.println("Nome: " + nome);
         System.out.println("CPF: " + cpf);

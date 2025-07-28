@@ -3,16 +3,16 @@ package com.sistema;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import com.sistema.Gson.GsonUtil;
 import com.sistema.franquia.Franquia;
+import com.sistema.graficos.Grafico;
 import com.sistema.pessoa.Dono;
 
 public class Gerenciador_sistema {
 
     Path CAMINHO_ARQUIVO_DONO;
     Path CAMINHO_ARQUIVO_FILIAIS;
-    
+    Grafico graficos;
     Franquia franquia;
 
 
@@ -40,12 +40,17 @@ public class Gerenciador_sistema {
         }
 
         //inicia os graficos
-
+        graficos = new Grafico();
+        graficos.tela_login_principal(this); //passa o endereço do gerenciador para os graficos
     }
 
-    public void caminho() {
+    public void caminho() { //para verificaçao dos caminhos
         System.out.println("Caminho do arquivo de dono: " + CAMINHO_ARQUIVO_DONO);
         System.out.println("Caminho do arquivo de filiais: " + CAMINHO_ARQUIVO_FILIAIS);
+    }
+
+    public Franquia getFranquia() {
+        return franquia;
     }
 
     //public void adcioar_filial()
