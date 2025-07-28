@@ -1,4 +1,4 @@
-package com.sistema.graficos;
+package com.sistema.Gson;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;

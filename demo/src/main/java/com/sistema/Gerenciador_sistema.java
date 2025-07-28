@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import com.sistema.Gson.GsonUtil;
 import com.sistema.franquia.Franquia;
-import com.sistema.graficos.GsonUtil;
 import com.sistema.pessoa.Dono;
 
 public class Gerenciador_sistema {
@@ -40,9 +40,13 @@ public class Gerenciador_sistema {
         }
 
         //inicia os graficos
-        
+
     }
 
+    public void caminho() {
+        System.out.println("Caminho do arquivo de dono: " + CAMINHO_ARQUIVO_DONO);
+        System.out.println("Caminho do arquivo de filiais: " + CAMINHO_ARQUIVO_FILIAIS);
+    }
 
     //public void adcioar_filial()
 }
