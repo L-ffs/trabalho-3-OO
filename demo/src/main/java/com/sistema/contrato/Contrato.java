@@ -1,13 +1,18 @@
 package com.sistema.contrato;
 
+import com.sistema.pessoa.Vendedor;
+
 public class Contrato {
-    String comprador;
-    String vendedor;
-    String produto;
-    double preco;
+    private static int idCounter = 0;  //contador estatico para ids unicos
+    private int id;  //id unico do contrato
+    private String comprador;
+    private Vendedor vendedor;
+    private String produto;
+    private double preco;
 
     public Contrato() {} // Contrato vazio para o Gson
-    public Contrato(String comprador, String vendedor, String produto, double preco) {
+    public Contrato(String comprador, Vendedor vendedor, String produto, double preco) {
+        this.id = ++idCounter;  //incrementa o contador e atribui um novo id
         this.comprador = comprador;
         this.vendedor = vendedor;
         this.produto = produto;
@@ -15,8 +20,11 @@ public class Contrato {
     }
 
 
-
-
+    @Override
+    public String toString() {
+        return "id: " + id + ", comprador: " + comprador + ", produto: " + produto
+         + ", preco: " + preco;
+    }
     // Getters and Setters
     public String getComprador() {
         return comprador;
@@ -26,12 +34,12 @@ public class Contrato {
         this.comprador = comprador;
     }
 
-    public String getVendedor() {
+    public Vendedor getVendedor() {
         return vendedor;
     }
 
-    public void setVendedor(String vendedor) {
-        this.vendedor = vendedor;
+    public void setVendedor(Vendedor vendedor) {
+        this.vendedor= vendedor;
     }
 
     public String getProduto() {
@@ -48,5 +56,11 @@ public class Contrato {
 
     public void setPreco(double preco) {
         this.preco = preco;
+    }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
 }

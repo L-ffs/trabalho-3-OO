@@ -5,16 +5,21 @@ import java.util.HashMap;
 import java.util.Map;
 import com.sistema.Produto.Produto;
 import com.sistema.contrato.Contrato;
+import com.sistema.contrato.Pedido_altereçao;
 import com.sistema.pessoa.*;
 
 
 public class Filial {
 
+    private String nome;
     private String endereco;
     private Gerente gerente;
     private ArrayList<Vendedor> vendedores= new ArrayList<>();
     private ArrayList<Contrato> contratos= new ArrayList<>();
     private Map<Produto, Integer> estoque = new HashMap<>();
+    private ArrayList<Pedido_altereçao> pedidos_alteracao = new ArrayList<>();
+
+    
 
     public Filial(){}; //construtor vazio para o Gson
     public Filial(String endereco, Gerente gerente, ArrayList<Vendedor> vendedores,
@@ -58,6 +63,18 @@ public class Filial {
     }
     public void setEstoque(Map<Produto, Integer> estoque) {
         this.estoque = estoque;
+    }
+    public String getNome() {
+        return nome;
+    }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    public ArrayList<Pedido_altereçao> getPedidos_alteracao() {
+        return pedidos_alteracao;
+    }
+    public void setPedidos_alteracao(ArrayList<Pedido_altereçao> pedidos_alteracao) {
+        this.pedidos_alteracao = pedidos_alteracao;
     }
 
 
