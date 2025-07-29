@@ -17,11 +17,11 @@ public class App {
     public static void main( String[] args ) {
 
         System.out.println( "\n\n" );
-        //Grafico graficos = new Grafico();
-        Gerenciador_sistema sistema = new Gerenciador_sistema();
+        Grafico graficos = new Grafico();
+        //Gerenciador_sistema sistema = new Gerenciador_sistema();
 
-        sistema.Start_sistema(); //inicia o sistema
-
+        //sistema.Start_sistema(); //inicia o sistema
+        graficos.tela_principal_gerente();
 
         System.out.println( "\n\n" );
         
