@@ -9,6 +9,7 @@ import com.sistema.graficos.User;
 import com.sistema.pessoa.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.*;
@@ -603,7 +604,158 @@ public class Grafico {
     atualizar_tela();
 }
 
+public void tela_manipular_vendedores() {
+    limpar_tela();
+    frame.setTitle("Manipular Vendedores");
 
+    JPanel panel = new JPanel(null);
+    panel.setBounds(0, 0, tela_X, tela_y);
+
+    // Lista de vendedores
+    DefaultListModel<String> modeloLista = new DefaultListModel<>();
+    List<Vendedor> vendedores = usuario.getFilial().getVendedores() == null ? usuario.getFilial().getVendedores() : new ArrayList<Vendedor>(); // Supondo que você tenha uma lista em algum lugar
+    
+    
+    for (Vendedor v : vendedores) {
+        modeloLista.addElement(v.getNome() + " (CPF: " + v.getCpf() + ")");
+    }
+
+    JList<String> listaVendedores = new JList<>(modeloLista);
+    listaVendedores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    JScrollPane scrollLista = new JScrollPane(listaVendedores);
+    scrollLista.setBounds(Pcent('x', 5), Pcent('y', 10), Pcent('x', 40), Pcent('y', 80));
+    panel.add(scrollLista);
+
+    // Botões
+    JButton botaoExcluir = new JButton("Excluir Vendedor");
+    JButton botaoEditar = new JButton("Editar Vendedor");
+    JButton botaoNovo = new JButton("Novo Vendedor");
+
+    botaoExcluir.setBounds(Pcent('x', 50), Pcent('y', 30), 150, 40);
+    botaoEditar.setBounds(Pcent('x', 50), Pcent('y', 40), 150, 40);
+    botaoNovo.setBounds(Pcent('x', 50), Pcent('y', 50), 150, 40);
+
+    panel.add(botaoExcluir);
+    panel.add(botaoEditar);
+    panel.add(botaoNovo);
+
+    // Ações
+    botaoExcluir.addActionListener(e -> {
+        int index = listaVendedores.getSelectedIndex();
+        if (index >= 0) {
+            vendedores.remove(index);
+            modeloLista.remove(index);
+        } else {
+            JOptionPane.showMessageDialog(frame, "Selecione um vendedor para excluir.");
+        }
+    });
+
+    botaoEditar.addActionListener(e -> {
+        int index = listaVendedores.getSelectedIndex();
+        if (index >= 0) {
+            Vendedor selecionado = vendedores.get(index);
+            tela_criar_ou_editar_vendedor(selecionado);
+        } else {
+            JOptionPane.showMessageDialog(frame, "Selecione um vendedor para editar.");
+        }
+    });
+
+    botaoNovo.addActionListener(e -> {
+        tela_criar_ou_editar_vendedor(null);
+    });
+
+    frame.add(panel);
+    atualizar_tela();
+}
+
+public void tela_criar_ou_editar_vendedor(Vendedor vendedorExistente) {
+    limpar_tela();
+    frame.setTitle(vendedorExistente == null ? "Criar Vendedor" : "Editar Vendedor");
+
+    JPanel panel = new JPanel(null);
+    panel.setBounds(0, 0, tela_X, tela_y);
+
+    // Campos
+    JLabel labelNome = new JLabel("Nome:");
+    JTextField campoNome = new JTextField();
+    JLabel labelCpf = new JLabel("CPF:");
+    JTextField campoCpf = new JTextField();
+    JLabel labelIdade = new JLabel("Idade:");
+    JTextField campoIdade = new JTextField();
+    JLabel labelEmail = new JLabel("Email:");
+    JTextField campoEmail = new JTextField();
+    JLabel labelSenha = new JLabel("Senha:");
+    JTextField campoSenha = new JTextField();
+
+    int x = Pcent('x', 30), y = Pcent('y', 20), h = 25, wLabel = 100, wCampo = 200, dy = 35;
+
+    labelNome.setBounds(x, y, wLabel, h);
+    campoNome.setBounds(x + wLabel, y, wCampo, h);
+    labelCpf.setBounds(x, y += dy, wLabel, h);
+    campoCpf.setBounds(x + wLabel, y, wCampo, h);
+    labelIdade.setBounds(x, y += dy, wLabel, h);
+    campoIdade.setBounds(x + wLabel, y, wCampo, h);
+    labelEmail.setBounds(x, y += dy, wLabel, h);
+    campoEmail.setBounds(x + wLabel, y, wCampo, h);
+    labelSenha.setBounds(x, y += dy, wLabel, h);
+    campoSenha.setBounds(x + wLabel, y, wCampo, h);
+
+    // Preenchimento para edição
+    if (vendedorExistente != null) {
+        campoNome.setText(vendedorExistente.getNome());
+        campoCpf.setText(vendedorExistente.getCpf());
+        campoIdade.setText(String.valueOf(vendedorExistente.getIdade()));
+        campoEmail.setText(vendedorExistente.getEmail());
+        campoSenha.setText(vendedorExistente.getSenha());
+    }
+
+    // Botão confirmar
+    JButton botaoConfirmar = new JButton("Confirmar");
+    botaoConfirmar.setBounds(Pcent('x', 47), y + dy + 20, 120, 30);
+
+    botaoConfirmar.addActionListener(e -> {
+        String nome = campoNome.getText().trim();
+        String cpf = campoCpf.getText().trim();
+        String idadeTexto = campoIdade.getText().trim();
+        String email = campoEmail.getText().trim();
+        String senha = campoSenha.getText().trim();
+
+        if (nome.isEmpty() || cpf.isEmpty() || idadeTexto.isEmpty() || email.isEmpty() || senha.isEmpty()) {
+            JOptionPane.showMessageDialog(frame, "Preencha todos os campos.");
+            return;
+        }
+
+        try {
+            int idade = Integer.parseInt(idadeTexto);
+
+            if (vendedorExistente == null) {
+                Vendedor novo = new Vendedor(nome, cpf, idade, email, senha);
+                usuario.getFilial().getVendedores().add(novo);
+            } else {
+                vendedorExistente.setNome(nome);
+                vendedorExistente.setCpf(cpf);
+                vendedorExistente.setIdade(idade);
+                vendedorExistente.setEmail(email);
+                vendedorExistente.setSenha(senha);
+            }
+
+            tela_manipular_vendedores();
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(frame, "Idade inválida.");
+        }
+    });
+
+    // Adiciona ao painel
+    panel.add(labelNome); panel.add(campoNome);
+    panel.add(labelCpf); panel.add(campoCpf);
+    panel.add(labelIdade); panel.add(campoIdade);
+    panel.add(labelEmail); panel.add(campoEmail);
+    panel.add(labelSenha); panel.add(campoSenha);
+    panel.add(botaoConfirmar);
+
+    frame.add(panel);
+    atualizar_tela();
+}
 
 
 }
