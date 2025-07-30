@@ -14,16 +14,19 @@ import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.Component;
@@ -132,7 +135,7 @@ public class Grafico {
         if (usuario.getPessoa() instanceof Dono) {
             //tela_principal_dono();
         } else if (usuario.getPessoa() instanceof Gerente) {
-            //tela_principal_gerente();
+            tela_principal_gerente();
         } else if (usuario.getPessoa() instanceof Vendedor) {
             tela_principal_vendedor();
         }
@@ -337,7 +340,7 @@ public class Grafico {
     JTextArea areaVendas = new JTextArea();
     areaVendas.setEditable(false);
     JScrollPane scroll = new JScrollPane(areaVendas);
-    scroll.setBounds(Pcent('x', 20), Pcent('y', 15), Pcent('x', 60), Pcent('y', 60));
+    scroll.setBounds(120, Pcent('y', 15), Pcent('x', 60), Pcent('y', 60));
     panel.add(scroll);
 
     // Verifica se é um vendedor e monta o texto
@@ -397,7 +400,7 @@ public class Grafico {
 
     // Adiciona botões de exemplo
     String[] nomesBotoes = {
-        "Ver vendas da filial", 
+        "Produtos da filial", 
         "Gerenciar vendedores", 
         "Ver retificações",
         "Estoque de produtos",
@@ -415,10 +418,11 @@ public class Grafico {
 
         // AÇÕES DOS BOTÕES
         switch (nome) {
-            case "Ver vendas da filial":
+            case "Produtos da filial":
                 botao.addActionListener(e -> {
                     // exemplo de ação: chamar tela de listagem
-                    System.out.println("Ação: ver vendas da filial");
+                    System.out.println("Produtos da filial");
+                    tela_manipular_produtos();
                     // tela_vendas_filial();
                 });
                 break;
@@ -472,6 +476,150 @@ public class Grafico {
     frame.add(panel);
     atualizar_tela();
     }
+
+    public void tela_manipular_produtos() {
+        limpar_tela();
+        frame.setTitle("Manipular Produtos");
+
+        JPanel panel = new JPanel(null);
+        panel.setBounds(0, 0, tela_X, tela_y);
+
+        // Lista de produtos (String) para exibição
+        DefaultListModel<String> modeloLista = new DefaultListModel<>();
+        Map<Produto, Integer> estoque = usuario.getFilial().getEstoque() == null ? Map.of() : usuario.getFilial().getEstoque();
+        for (Produto p : estoque.keySet()) {
+            modeloLista.addElement(p.getNome() + " (Qtd: " + estoque.get(p) + ")");
+        }
+
+        JList<String> listaProdutos = new JList<>(modeloLista);
+        listaProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        JScrollPane scrollLista = new JScrollPane(listaProdutos);
+        scrollLista.setBounds(Pcent('x', 5), Pcent('y', 10), Pcent('x', 40), Pcent('y', 80));
+        panel.add(scrollLista);
+
+        // Botões
+        JButton botaoExcluir = new JButton("Excluir Produto");
+        JButton botaoEditar = new JButton("Editar Produto");
+        JButton botaoNovo = new JButton("Novo Produto");
+
+
+        botaoExcluir.setBounds(Pcent('x', 50), Pcent('y', 30), 120, 40);
+        botaoEditar.setBounds(Pcent('x', 50), Pcent('y', 40), 120, 40);
+        botaoNovo.setBounds(Pcent('x', 50), Pcent('y', 50), 120, 40);
+
+        panel.add(botaoExcluir);
+        panel.add(botaoEditar);
+        panel.add(botaoNovo);
+
+        // Adicionar ações (apenas esqueleto aqui, você pode completar com lógica real)
+        botaoExcluir.addActionListener(e -> {
+            int index = listaProdutos.getSelectedIndex();
+            if (index >= 0) { // -1 se nao escolhido
+                Produto selecionado = (Produto) estoque.keySet().toArray()[index];
+                estoque.remove(selecionado);
+                modeloLista.remove(index);
+            } else {
+                JOptionPane.showMessageDialog(frame, "Selecione um produto para excluir.");
+            }
+        });
+
+        botaoEditar.addActionListener(e -> {
+            int index = listaProdutos.getSelectedIndex();
+            if (index >= 0) {
+                Produto selecionado = (Produto) estoque.keySet().toArray()[index];
+                // Aqui você pode chamar outra função para abrir a tela de edição
+                tela_criar_ou_editar_produto(selecionado);
+            } else {
+                JOptionPane.showMessageDialog(frame, "Selecione um produto para editar.");
+            }
+        });
+
+        botaoNovo.addActionListener(e -> {
+            // Chame aqui uma função para criar novo produto
+            tela_criar_ou_editar_produto(null);
+        });
+
+        frame.add(panel);
+        atualizar_tela();
+    }
+
+    public void tela_criar_ou_editar_produto(Produto produtoExistente) {
+    limpar_tela();
+    frame.setTitle(produtoExistente == null ? "Criar Produto" : "Editar Produto");
+
+    JPanel panel = new JPanel(null);
+    panel.setBounds(0, 0, tela_X, tela_y);
+
+    // Campos
+    JLabel labelNome = new JLabel("Nome:");
+    JTextField campoNome = new JTextField();
+    JLabel labelValor = new JLabel("Valor:");
+    JTextField campoValor = new JTextField();
+    JLabel labelQtd = new JLabel("Quantidade:");
+    JTextField campoQtd = new JTextField();
+
+
+    labelNome.setBounds(Pcent('x', 40), Pcent('y', 25), 100, 25);
+    campoNome.setBounds(Pcent('x', 40) + 100, Pcent('y', 25), 200, 25);
+    labelValor.setBounds(Pcent('x', 40), Pcent('y', 32), 100, 25);
+    campoValor.setBounds(Pcent('x', 40) + 100, Pcent('y', 32), 200, 25);
+    labelQtd.setBounds(Pcent('x', 40), Pcent('y', 39), 100, 25);
+    campoQtd.setBounds(Pcent('x', 40) + 100, Pcent('y', 39), 200, 25);
+
+    // Se for edição, preencher os campos
+    if (produtoExistente != null) {
+        campoNome.setText(produtoExistente.getNome());
+        campoValor.setText(String.valueOf(produtoExistente.getPreco()));
+        campoQtd.setText(String.valueOf(usuario.getFilial().getEstoque().get(produtoExistente)));
+    }
+
+    // Botão confirmar
+    JButton botaoConfirmar = new JButton("Confirmar");
+    botaoConfirmar.setBounds(Pcent('x', 47), Pcent('y', 50), 120, 30);
+
+    botaoConfirmar.addActionListener(e -> {
+        String nome = campoNome.getText().trim();
+        String valorTexto = campoValor.getText().trim();
+        String qtdTexto = campoQtd.getText().trim();
+
+        if (nome.isEmpty() || valorTexto.isEmpty() || qtdTexto.isEmpty()) {
+            JOptionPane.showMessageDialog(frame, "Preencha todos os campos.");
+            return;
+        }
+
+        try {
+            double preco = Double.parseDouble(valorTexto);
+            int quantidade = Integer.parseInt(qtdTexto);
+
+            if (produtoExistente == null) {
+                Produto novo = new Produto(nome, preco);
+                if( usuario.getFilial().getEstoque() == null) {
+                    usuario.getFilial().setEstoque(new java.util.HashMap<>());
+                }
+                usuario.getFilial().getEstoque().put(novo, quantidade);
+            } else {
+                usuario.getFilial().getEstoque().remove(produtoExistente);
+                produtoExistente.setNome(nome);
+                produtoExistente.setPreco(preco);
+                usuario.getFilial().getEstoque().put(produtoExistente, quantidade);
+            }
+
+            tela_manipular_produtos(); // Volta para tela anterior
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(frame, "Valor ou quantidade inválidos.");
+        }
+    });
+
+    // Adicionar componentes
+    panel.add(labelNome); panel.add(campoNome);
+    panel.add(labelValor); panel.add(campoValor);
+    panel.add(labelQtd); panel.add(campoQtd);
+    panel.add(botaoConfirmar);
+
+    frame.add(panel);
+    atualizar_tela();
+}
+
 
 
 
