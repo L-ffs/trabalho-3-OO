@@ -413,7 +413,7 @@ public class Grafico {
             case "Gerenciar vendedores":
                 botao.addActionListener(e -> {
                     System.out.println("Ação: gerenciar vendedores");
-                    // tela_gerenciar_vendedores();
+                    tela_manipular_vendedores();
                 });
                 break;
             case "Ver retificações":
