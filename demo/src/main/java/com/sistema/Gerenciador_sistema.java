@@ -26,8 +26,7 @@ public class Gerenciador_sistema {
         System.out.println("Iniciando o sistema...");
         
         // Define os caminhos dos arquivos de permanência
-        CAMINHO_ARQUIVO_DONO= Paths.get("").toAbsolutePath()
-        .resolve(Paths.get("demo", "src", "main", "arquivosPermanencia"));
+        CAMINHO_ARQUIVO_DONO= Paths.get("").toAbsolutePath().resolve(Paths.get("trabalho-3-OO","demo", "src", "main", "arquivosPermanencia"));
 
         CAMINHO_ARQUIVO_FILIAIS= CAMINHO_ARQUIVO_DONO.resolve("filiais.json");
         CAMINHO_ARQUIVO_DONO= CAMINHO_ARQUIVO_DONO.resolve("dono.json");
