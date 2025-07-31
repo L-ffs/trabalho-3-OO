@@ -1,5 +1,9 @@
 package com.sistema.pessoa;
 
+import com.sistema.franquia.filial.Filial;
+import com.sistema.graficos.Grafico;
+import com.sistema.graficos.User;
+
 public class Pessoa {
 
     private String nome;
@@ -38,4 +42,7 @@ public class Pessoa {
         System.out.println("Email: " + email);
         System.out.println("Senha: " + senha);
     }
+
+    public void notificar(User usuario)  {}
+
 }

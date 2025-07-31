@@ -1,6 +1,8 @@
 package com.sistema;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -25,11 +27,15 @@ public class Gerenciador_sistema {
     public void Start_sistema() {
         System.out.println("Iniciando o sistema...");
         
-        // Define os caminhos dos arquivos de permanência
-        CAMINHO_ARQUIVO_DONO= Paths.get("").toAbsolutePath().resolve(Paths.get("trabalho-3-OO","demo", "src", "main", "arquivosPermanencia"));
-
-        CAMINHO_ARQUIVO_FILIAIS= CAMINHO_ARQUIVO_DONO.resolve("filiais.json");
-        CAMINHO_ARQUIVO_DONO= CAMINHO_ARQUIVO_DONO.resolve("dono.json");
+        try {// Define os caminhos dos arquivos de permanência
+            URL url= Gerenciador_sistema.class.getClassLoader().getResource("arquivosPermanencia");
+            CAMINHO_ARQUIVO_FILIAIS= Paths.get(url.toURI()).resolve("filiais.json");
+            CAMINHO_ARQUIVO_DONO= Paths.get(url.toURI()).resolve("dono.json");
+        } catch (URISyntaxException e) {
+            System.out.println("Erro ao obter o caminho dos arquivos de permanência: " + e.getMessage());
+            return; // Encerra o método se houver erro
+        }
+        
 
         // Inicializa a franquia
         franquia = new Franquia();
@@ -46,7 +52,7 @@ public class Gerenciador_sistema {
         franquia.atualiza_funcionarios(); 
 
         //inicia os graficos
-        graficos = new Grafico();
+        graficos = new Grafico(franquia);
         graficos.tela_login_principal(this); //passa o endereço do gerenciador para os graficos
     }
 
@@ -63,21 +69,7 @@ public class Gerenciador_sistema {
         JOptionPane.showMessageDialog(null, mensagem, "Notificação", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public void verificar_notificaçoes(User usuario) {
-        
-        if (usuario.getPessoa() instanceof Dono) {
-            for (Filial filial : usuario.getFranquia().getFiliais()) {
-                if (filial.getGerente() == null) {
-                    mostrarNotificacao("a filial " + filial.getNome() + "nao possui um gerente.");
-                }
-            }  
-        } else if (usuario.getPessoa() instanceof Gerente && usuario.getFilial().getPedidos_alteracao() != null) {
-            for (Pedido_altereçao pedido : usuario.getFilial().getPedidos_alteracao()) {
-                mostrarNotificacao("Novo pedido de alteração recebido de " + pedido.getRequeridor().getNome() + 
-                " para o contrato: " + pedido.getVenda().getId() + ". Motivo: " + pedido.getMotivo());
-            }
-        }
-    }
+    
 
     //public void adcioar_filial()
 }

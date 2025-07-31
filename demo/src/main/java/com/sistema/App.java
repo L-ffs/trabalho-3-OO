@@ -16,14 +16,19 @@ public class App {
 
     public static void main( String[] args ) {
 
-        System.out.println( "\n\n" );
+        
+        System.out.println( "\n\n" ); //espaçamento
+        
         //Grafico graficos = new Grafico();
-        Gerenciador_sistema sistema = new Gerenciador_sistema();
-
-        sistema.Start_sistema(); //inicia o sistema
         //graficos.tela_principal_gerente();
+        
+        Gerenciador_sistema sistema = new Gerenciador_sistema();
+        sistema.Start_sistema(); //inicia o sistema
 
-        System.out.println( "\n\n" );
+        System.out.println("Diretório base: " + System.getProperty("user.dir"));
+
+
+        System.out.println( "\n\n" ); //espaçamento
         
         
 

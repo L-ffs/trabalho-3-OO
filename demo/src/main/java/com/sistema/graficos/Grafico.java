@@ -4,9 +4,11 @@ import com.sistema.Gerenciador_sistema;
 import com.sistema.Produto.Produto;
 import com.sistema.contrato.Contrato;
 import com.sistema.contrato.Pedido_altereçao;
+import com.sistema.franquia.Franquia;
 import com.sistema.franquia.filial.Filial;
 import com.sistema.graficos.User;
 import com.sistema.pessoa.*;
+import com.sistema.validadores.Validar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,24 +21,33 @@ import java.awt.Insets;
 
 public class Grafico {
 
-    JFrame frame;
-    int tela_X;
-    int tela_y;
-    User usuario; //variavel para armazenar o usuario logado
+    protected static JFrame frame;
+    protected static int tela_X;
+    protected static int tela_y;
+    protected static User usuario= new User(); //variavel para armazenar o usuario logado
     
-
-    public Grafico() {
+    
+    private void inicializadorConstrutor() {
         tela_X = 1280;
         tela_y = 960;
-        usuario= null;
+        
         frame= new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
         frame.setBounds(0, 0, tela_X, tela_y);
         frame.setVisible(true);
-        
-
     }
+    public Grafico() {
+        inicializadorConstrutor();
+    }
+    public Grafico(Franquia franquia) {
+        usuario.setFranquia(franquia);
+        inicializadorConstrutor();
+    }
+
+
+
+    public void mostrar() {}
 
     public void tela_login_principal(Gerenciador_sistema sistema) {
         limpar_tela();
@@ -68,8 +79,12 @@ public class Grafico {
         botaoLogin.addActionListener(e -> {
             String email = campoEmail.getText();
             String senha = new String(campoSenha.getPassword());
-            if (validadorLogin(email, senha, sistema)) {
-                sistema.verificar_notificaçoes(usuario);
+
+            if (Validar.dadosLogin(email, senha, usuario.getFranquia())) {
+                
+                usuario.setPessoa(usuario.getFranquia().getPessoaPorEmail(email));
+                usuario.achar_filial();
+                
                 tela_principal();
             }
         });
@@ -77,17 +92,21 @@ public class Grafico {
         atualizar_tela();
     }
 
-    private void limpar_tela() {
+    public static void mostrarNotificacao(String mensagem) {
+        JOptionPane.showMessageDialog(null, mensagem, "Notificação", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    protected void limpar_tela() {
         frame.getContentPane().removeAll();
         atualizar_tela();
     }
 
-    private void atualizar_tela() {
+    protected void atualizar_tela() {
         frame.revalidate();
         frame.repaint();
     }
 
-    private int Pcent(char eixo,double percent) {
+    protected int Pcent(char eixo,double percent) {
 
         boolean ForaIntervalo= percent < 0 || percent > 100;
         boolean EixoInvalido= eixo != 'x' && eixo != 'y';
@@ -98,22 +117,6 @@ public class Grafico {
         int valor= (eixo == 'x' ? tela_X : tela_y);
         return (int) (valor * (percent / 100));
     }   
-
-    public boolean validadorLogin(String email, String senha, Gerenciador_sistema sistema) {
-
-        Pessoa pessoa = null;
-        boolean emailExiste= sistema.getFranquia().Email_existe(email);
-        pessoa= emailExiste ? sistema.getFranquia().getPessoaPorEmail(email) : null;
-        boolean logavel= pessoa != null && pessoa.getSenha().equals(senha);
-
-        if (logavel) {
-                usuario = new User(pessoa, null, sistema.getFranquia());
-                usuario.achar_filial();
-                System.out.println("Login bem-sucedido para: " + usuario.getPessoa().getNome());
-                return true;
-            }
-            return false;
-    }
     
     public void tela_principal() {
         if (usuario.getPessoa() instanceof Dono) {

@@ -1,7 +1,11 @@
 package com.sistema.franquia;
 
 import java.util.ArrayList;
+
+import com.sistema.contrato.Pedido_altereçao;
 import com.sistema.franquia.filial.Filial;
+import com.sistema.graficos.Grafico;
+import com.sistema.graficos.User;
 import com.sistema.pessoa.*;
 
 public class Franquia {
@@ -62,6 +66,7 @@ public class Franquia {
         return null; // Retorna null se não encontrar
     }
 
+    
     
         
 
