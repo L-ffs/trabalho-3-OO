@@ -1,6 +1,8 @@
 package com.sistema.franquia;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.sistema.contrato.Pedido_altereçao;
 import com.sistema.franquia.filial.Filial;
@@ -11,8 +13,8 @@ import com.sistema.pessoa.*;
 public class Franquia {
 
     private Dono dono;
-    private ArrayList<Filial> filiais = new ArrayList<>();
-    private ArrayList<Pessoa> funcionarios = new ArrayList<>(); 
+    private List<Filial> filiais = new ArrayList<>();
+    private List<Pessoa> funcionarios = new ArrayList<>(); 
     
     
     public Franquia() {};
@@ -26,13 +28,13 @@ public class Franquia {
     public void setDono(Dono dono) {
         this.dono = dono;
     }
-    public ArrayList<Filial> getFiliais() {
+    public List<Filial> getFiliais() {
         return filiais;
     }
-    public void setFiliais(ArrayList<Filial> filiais) {
+    public void setFiliais(List<Filial> filiais) {
         this.filiais = filiais;
     }
-    public ArrayList<Pessoa> getFuncionarios() {
+    public List<Pessoa> getFuncionarios() {
         return funcionarios;
     }
     public void atualiza_funcionarios() {
@@ -66,7 +68,12 @@ public class Franquia {
         return null; // Retorna null se não encontrar
     }
 
-    
+    public void inicializaEstruturasfiliais() {
+        if (getFiliais() == null) return;
+        for (Filial filial : getFiliais()) {
+            filial.inicializaEstruturas();
+        }
+    }
     
         
 

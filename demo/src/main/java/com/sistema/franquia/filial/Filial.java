@@ -2,6 +2,7 @@ package com.sistema.franquia.filial;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import com.sistema.Produto.Produto;
 import com.sistema.contrato.Contrato;
@@ -14,10 +15,10 @@ public class Filial {
     private String nome;
     private String endereco;
     private Gerente gerente;
-    private ArrayList<Vendedor> vendedores= new ArrayList<>();
-    private ArrayList<Contrato> contratos= new ArrayList<>();
+    private List<Vendedor> vendedores= new ArrayList<>();
+    private List<Contrato> contratos= new ArrayList<>();
     private Map<Produto, Integer> estoque = new HashMap<>();
-    private ArrayList<Pedido_altereçao> pedidos_alteracao = new ArrayList<>();
+    private List<Pedido_altereçao> pedidos_alteracao = new ArrayList<>();
 
     
 
@@ -46,16 +47,16 @@ public class Filial {
     public void setGerente(Gerente gerente) {
         this.gerente = gerente;
     }
-    public ArrayList<Vendedor> getVendedores() {
+    public List<Vendedor> getVendedores() {
         return vendedores;
     }
-    public void setVendedores(ArrayList<Vendedor> vendedores) {
+    public void setVendedores(List<Vendedor> vendedores) {
         this.vendedores = vendedores;
     }
-    public ArrayList<Contrato> getContratos() {
+    public List<Contrato> getContratos() {
         return contratos;
     }
-    public void setContratos(ArrayList<Contrato> contratos) {
+    public void setContratos(List<Contrato> contratos) {
         this.contratos = contratos;
     }
     public Map<Produto, Integer> getEstoque() {
@@ -70,14 +71,19 @@ public class Filial {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    public ArrayList<Pedido_altereçao> getPedidos_alteracao() {
+    public List<Pedido_altereçao> getPedidos_alteracao() {
         return pedidos_alteracao;
     }
-    public void setPedidos_alteracao(ArrayList<Pedido_altereçao> pedidos_alteracao) {
+    public void setPedidos_alteracao(List<Pedido_altereçao> pedidos_alteracao) {
         this.pedidos_alteracao = pedidos_alteracao;
     }
 
-
+    public void inicializaEstruturas() {
+        estoque= estoque== null ? new HashMap<>() : estoque;
+        pedidos_alteracao= pedidos_alteracao == null ? new ArrayList<>() : pedidos_alteracao;
+        contratos= contratos == null ? new ArrayList<>() : contratos;
+        vendedores= vendedores == null ? new ArrayList<>() : vendedores;
+    }
     
 
     

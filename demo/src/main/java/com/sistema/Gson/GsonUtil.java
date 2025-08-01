@@ -29,7 +29,7 @@ public class GsonUtil {
         }
     }
 
-    public static ArrayList<Filial> carregarFiliaisObjeto(Path caminhoArquivo) throws IOException {
+    public static List<Filial> carregarFiliaisObjeto(Path caminhoArquivo) throws IOException {
         Objects.requireNonNull(caminhoArquivo, "Caminho do arquivo não pode ser nulo");
         
         if (!Files.exists(caminhoArquivo)) {

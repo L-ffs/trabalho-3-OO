@@ -3,6 +3,7 @@ package com.sistema.pessoa;
 import com.sistema.contrato.Pedido_altereçao;
 import com.sistema.graficos.Grafico;
 import com.sistema.graficos.User;
+import com.sistema.graficos.telas.TelaPrincipalGerente;
 
 public class Gerente extends Pessoa {
 
@@ -24,7 +25,11 @@ public class Gerente extends Pessoa {
             } 
         } catch (NullPointerException e) {
 
-        }
-            
+        } 
+    }
+
+    @Override
+    public void MostrarTelaInicial() {
+        TelaPrincipalGerente.mostrar();
     }
 }

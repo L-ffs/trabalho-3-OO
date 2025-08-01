@@ -19,7 +19,11 @@ public class Dono extends Pessoa {
                 Grafico.mostrarNotificacao("a filial " + filial.getNome() + "nao possui um gerente.");
             }
         }  
-    
+    }
+
+    @Override
+    public void MostrarTelaInicial() {
+        //TelaPrincipalDono.mostrar();
     }
 
 

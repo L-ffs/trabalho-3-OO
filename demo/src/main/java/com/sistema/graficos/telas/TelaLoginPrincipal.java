@@ -15,8 +15,8 @@ public class TelaLoginPrincipal extends Grafico{
         super();
     }
 
-    @Override
-    public void mostrar() {
+    
+    public static void mostrar() {
 
         limpar_tela();
         
@@ -53,7 +53,12 @@ public class TelaLoginPrincipal extends Grafico{
                 usuario.setPessoa(usuario.getFranquia().getPessoaPorEmail(email));
                 usuario.achar_filial();
                 
-                tela_principal();
+                usuario.getPessoa().MostrarTelaInicial();
+                
+            }else {
+                mostrarNotificacao("Email ou senha inválidos.");
+                campoEmail.setText("");
+                campoSenha.setText("");
             }
         });
 

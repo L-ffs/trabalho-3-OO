@@ -45,4 +45,6 @@ public class Pessoa {
 
     public void notificar(User usuario)  {}
 
+    public void MostrarTelaInicial() {}
+
 }

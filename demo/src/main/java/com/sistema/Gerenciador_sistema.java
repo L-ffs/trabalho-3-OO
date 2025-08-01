@@ -14,6 +14,7 @@ import com.sistema.franquia.Franquia;
 import com.sistema.franquia.filial.Filial;
 import com.sistema.graficos.Grafico;
 import com.sistema.graficos.User;
+import com.sistema.graficos.telas.TelaLoginPrincipal;
 import com.sistema.pessoa.*;
 
 public class Gerenciador_sistema {
@@ -49,11 +50,13 @@ public class Gerenciador_sistema {
         }catch (Exception e) {
             System.out.println("Erro inesperado ao carregar os dados da franquia: " + e.getMessage());
         }
-        franquia.atualiza_funcionarios(); 
+        franquia.atualiza_funcionarios();
+        franquia.inicializaEstruturasfiliais();
+
 
         //inicia os graficos
         graficos = new Grafico(franquia);
-        graficos.tela_login_principal(this); //passa o endereço do gerenciador para os graficos
+        TelaLoginPrincipal.mostrar();
     }
 
     public void caminho() { //para verificaçao dos caminhos
