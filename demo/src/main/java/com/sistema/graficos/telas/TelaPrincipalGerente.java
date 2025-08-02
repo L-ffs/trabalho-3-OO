@@ -44,7 +44,7 @@ public class TelaPrincipalGerente extends Grafico {
         String[] nomesBotoes = {
             "Produtos da filial", 
             "Gerenciar vendedores", 
-            "Ver retificações",
+            "Ver informaçoes de vendas",
             "Estoque de produtos",
             "Notificações"
         };
@@ -74,10 +74,10 @@ public class TelaPrincipalGerente extends Grafico {
                         TelaManipularVendedores.mostrar();
                     });
                     break;
-                    case "Ver retificações":
+                    case "Ver informaçoes de vendas":
                     botao.addActionListener(e -> {
                         System.out.println("Ação: ver retificações");
-                        // tela_retificacoes();
+                        TelaVisualisarCompradores.mostrar();
                     });
                     break;
                 case "Estoque de produtos":

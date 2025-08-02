@@ -1,6 +1,7 @@
 package com.sistema.franquia.filial;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,7 +85,53 @@ public class Filial {
         contratos= contratos == null ? new ArrayList<>() : contratos;
         vendedores= vendedores == null ? new ArrayList<>() : vendedores;
     }
-    
 
+    public List<String> GetInfoCompradores() {
+       
+        class infoComprador {
+            public String nome;
+            public int numeroCompras;
+            public double valorGastoTotal;
+            public double gastoMedio;
+            @Override
+            public String toString() {
+                return "Nome: " + nome + "\nCompras: " + numeroCompras + 
+                       "\nTotal gasto: R$" + valorGastoTotal + 
+                       "\nGasto médio: R$" + gastoMedio;
+            }
+        }
+        List<infoComprador> compradores = new ArrayList<>();
+        List<String> cardInfoCompradores = new ArrayList<>();
+        try {
+            for (Contrato contrato : contratos) {
+                
+                if (compradores.contains(contrato.getComprador())) {
+                    // Se o comprador já existe, atualiza as informações
+                    infoComprador comprador = compradores.get(compradores.indexOf(contrato.getComprador()));
+                    comprador.numeroCompras++;
+                    comprador.valorGastoTotal += contrato.getPreco();
+                    comprador.gastoMedio = comprador.valorGastoTotal / comprador.numeroCompras;
+                } else {
+                    // Se não existe, cria um novo registro
+                    infoComprador novoComprador = new infoComprador();
+                    novoComprador.nome = contrato.getComprador();
+                    novoComprador.numeroCompras = 1;
+                    novoComprador.valorGastoTotal = contrato.getPreco();
+                    novoComprador.gastoMedio = contrato.getPreco();
+                    compradores.add(novoComprador);
+                }
+            }
+            compradores.sort((c1, c2) -> Integer.compare(c2.numeroCompras, c1.numeroCompras));
+            for (infoComprador comprador : compradores) {
+                cardInfoCompradores.add(comprador.toString());
+            }
+            if (compradores.isEmpty()) cardInfoCompradores.add("Nenhum comprador encontrado.");
+            
+        } catch (NullPointerException e) {
+            cardInfoCompradores.add("Nenhum comprador encontrado.");
+        }
+
+        return cardInfoCompradores;
+    }
     
 }

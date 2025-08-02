@@ -34,19 +34,33 @@ public class Validar {
             return false;
     }
 
-    public static boolean CPF(String cpf) {
+    public static boolean CPF(String cpf) { //modelo simplificado
 
-        /* 
-        if (CPF.length() != 11 || CPF.matches("(\\d)\\1{10}")) return false;
-
-        return IntStream.range(0, 2).allMatch(i -> 
-        CPF.charAt(9 + i) - '0' == (IntStream.range(0, 9 + i)
-        .map(j -> (CPF.charAt(j) - '0') * (10 + i - j)).sum() % 11 % 10));
-        */
         String CPF = cpf.replaceAll("\\D", "");
-        // Verifica se tem 11 dígitos e não é uma sequência repetida
         if (CPF.length() != 11 || CPF.matches("(\\d)\\1{10}")) return false;
         return true;
+        /*  
+        // Verifica tamanho e dígitos repetidos
+        if (cpf.length() != 11 || cpf.matches("(\\d)\\1{10}")) return false;
+        
+        // Calcula primeiro dígito
+        int soma = 0;
+        for (int i = 0; i < 9; i++) {
+            soma += Character.getNumericValue(cpf.charAt(i)) * (10 - i);
+        }
+        int digito1 = (soma % 11) < 2 ? 0 : 11 - (soma % 11);
+        
+        // Calcula segundo dígito
+        soma = 0;
+        for (int i = 0; i < 10; i++) {
+            soma += Character.getNumericValue(cpf.charAt(i)) * (11 - i);
+        }
+        int digito2 = (soma % 11) < 2 ? 0 : 11 - (soma % 11);
+        
+        return (Character.getNumericValue(cpf.charAt(9)) == digito1) && 
+            (Character.getNumericValue(cpf.charAt(10)) == digito2);
+        */
+        // Verifica se tem 11 dígitos e não é uma sequência repetida
     }
 
     public static boolean nome(String nome) {

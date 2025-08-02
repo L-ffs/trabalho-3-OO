@@ -30,7 +30,7 @@ public class Grafico {
     
     private void inicializadorConstrutor() {
         tela_X = 1280;
-        tela_y = 960;
+        tela_y = 720;
         
         frame= new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

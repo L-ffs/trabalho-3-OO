@@ -20,6 +20,12 @@ public class Contrato {
     }
 
 
+    public static int getIdCounter() {
+        return idCounter;
+    }
+    public static void setIdCounter(int idCounter) {
+        Contrato.idCounter = idCounter;
+    }
     @Override
     public String toString() {
         return "id: " + id + ", comprador: " + comprador + ", produto: " + produto
