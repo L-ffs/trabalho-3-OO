@@ -1,6 +1,7 @@
 package com.sistema.graficos;
 
 import com.sistema.Gerenciador_sistema;
+import com.sistema.Gson.GsonUtil;
 import com.sistema.Produto.Produto;
 import com.sistema.contrato.Contrato;
 import com.sistema.contrato.Pedido_altereçao;
@@ -33,10 +34,20 @@ public class Grafico {
         tela_y = 720;
         
         frame= new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.setLayout(null);
         frame.setBounds(0, 0, tela_X, tela_y);
         frame.setVisible(true);
+
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                
+                if (confirmarFechamentoDaJanela()) {
+                    fecharESalvar();
+                }
+            }
+        });
     }
     public Grafico() {
         inicializadorConstrutor();
@@ -75,7 +86,28 @@ public class Grafico {
         return (int) (valor * (percent / 100));
     }   
 
+    private boolean confirmarFechamentoDaJanela() {
+        int confirm = JOptionPane.showConfirmDialog(
+            frame,
+            "Deseja realmente sair? Todos os dados não salvos serão perdidos.",
+            "Confirmação de Saída",
+            JOptionPane.YES_NO_OPTION
+        );
+        return confirm == JOptionPane.YES_OPTION;
+    }
 
+    public static void fecharESalvar() {
+        GsonUtil gsonUtil = new GsonUtil();
+        try {
+            gsonUtil.salvarDonoJSON(usuario.getFranquia().getDono());
+            gsonUtil.salvarFiliaisJSON(usuario.getFranquia().getFiliais());
+        } catch (Exception e) {
+            System.out.println("Erro ao salvar os dados: " + e.getMessage());
+        }
+                    
+        frame.dispose();
+        System.exit(0);
+    }
     /*
     public void tela_login_principal() { //recriada
         limpar_tela();

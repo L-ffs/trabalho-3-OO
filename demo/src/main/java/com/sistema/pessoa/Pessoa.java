@@ -47,4 +47,12 @@ public class Pessoa {
 
     public void MostrarTelaInicial() {}
 
+    
+    public boolean vazio() {
+        return (nome == null || nome.trim().isEmpty()) &&
+           (cpf == null || cpf.trim().isEmpty()) &&
+           idade == 0 &&
+           (email == null || email.trim().isEmpty());
+    }
+
 }

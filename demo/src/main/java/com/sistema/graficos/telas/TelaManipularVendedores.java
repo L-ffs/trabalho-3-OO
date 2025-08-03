@@ -69,16 +69,17 @@ public class TelaManipularVendedores extends Grafico {
         int index = listaVendedores.getSelectedIndex();
         if (index >= 0) {
             Vendedor selecionado = vendedores.get(index);
-            TelaCriarEditarPessoa.CriarPessoa(selecionado, TelaManipularVendedores::mostrar);
+            Runnable fazNada= () -> {};
+            TelaCriarEditarPessoa.CriarPessoa(selecionado, fazNada, TelaManipularVendedores::mostrar);
         } else {
             JOptionPane.showMessageDialog(frame, "Selecione um vendedor para editar.");
         }
     });
 
     botaoNovo.addActionListener(e -> {
-        Vendedor vendedor = new Vendedor();
-        TelaCriarEditarPessoa.CriarPessoa(vendedor, TelaManipularVendedores::mostrar);
-        usuario.getFilial().getVendedores().add(vendedor);
+        Vendedor vendedor= new Vendedor();
+        Runnable salvarVendedor= () -> usuario.getFilial().getVendedores().add(vendedor);
+        TelaCriarEditarPessoa.CriarPessoa(vendedor, salvarVendedor, TelaManipularVendedores::mostrar);
     });
 
     frame.add(panel);

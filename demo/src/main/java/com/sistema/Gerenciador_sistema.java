@@ -14,56 +14,67 @@ import com.sistema.franquia.Franquia;
 import com.sistema.franquia.filial.Filial;
 import com.sistema.graficos.Grafico;
 import com.sistema.graficos.User;
+import com.sistema.graficos.telas.TelaCriarEditarPessoa;
 import com.sistema.graficos.telas.TelaLoginPrincipal;
 import com.sistema.pessoa.*;
 
 public class Gerenciador_sistema {
 
-    Path CAMINHO_ARQUIVO_DONO;
-    Path CAMINHO_ARQUIVO_FILIAIS;
+   
     Grafico graficos;
     Franquia franquia;
+    GsonUtil gsonUtil;
 
+
+    public Gerenciador_sistema() {
+        gsonUtil = new GsonUtil();
+        franquia = new Franquia();
+        graficos = new Grafico(franquia);
+    }
 
     public void Start_sistema() {
         System.out.println("Iniciando o sistema...");
         
-        try {// Define os caminhos dos arquivos de permanência
-            URL url= Gerenciador_sistema.class.getClassLoader().getResource("arquivosPermanencia");
-            CAMINHO_ARQUIVO_FILIAIS= Paths.get(url.toURI()).resolve("filiais.json");
-            CAMINHO_ARQUIVO_DONO= Paths.get(url.toURI()).resolve("dono.json");
-        } catch (URISyntaxException e) {
-            System.out.println("Erro ao obter o caminho dos arquivos de permanência: " + e.getMessage());
-            return; // Encerra o método se houver erro
-        }
         
-
-        // Inicializa a franquia
-        franquia = new Franquia();
 
         // Carrega os dados da franquia
         try {
-            franquia.setDono(GsonUtil.carregarDonoObjeto(CAMINHO_ARQUIVO_DONO));
-            franquia.setFiliais(GsonUtil.carregarFiliaisObjeto(CAMINHO_ARQUIVO_FILIAIS));
+
+            franquia.setDono(gsonUtil.carregarDonoObjeto());
+            franquia.setFiliais(gsonUtil.carregarFiliaisObjeto());
         } catch (IOException e) {
+
             System.out.println("Erro ao carregar os dados da franquia: " + e.getMessage());
         }catch (Exception e) {
+
             System.out.println("Erro inesperado ao carregar os dados da franquia: " + e.getMessage());
         }
         franquia.atualiza_funcionarios();
         franquia.inicializaEstruturasfiliais();
 
-
         //inicia os graficos
-        graficos = new Grafico(franquia);
-        TelaLoginPrincipal.mostrar();
+
+        if (franquia.getDono() == null || franquia.getDono().vazio()) {
+            //ESSENCIAL MANTER ESSA ORDEM DE VALIDAÇAO
+            Dono dono= new Dono();
+            Runnable salvarDono= () -> franquia.setDono(dono);
+            TelaCriarEditarPessoa.CriarPessoa(dono, salvarDono, Grafico::fecharESalvar);
+            
+        }
+        else {
+            
+            TelaLoginPrincipal.mostrar();
+        }
+
+        //TelaLoginPrincipal.mostrar();
+
+
+
     }
 
-    public void caminho() { //para verificaçao dos caminhos
-        System.out.println("Caminho do arquivo de dono: " + CAMINHO_ARQUIVO_DONO);
-        System.out.println("Caminho do arquivo de filiais: " + CAMINHO_ARQUIVO_FILIAIS);
-    }
+    
 
+    
     public Franquia getFranquia() {
         return franquia;
     }

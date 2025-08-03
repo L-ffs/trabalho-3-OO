@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import com.sistema.Gson.GsonUtil;
 import com.sistema.franquia.filial.Filial;
 import com.sistema.graficos.Grafico;
+import com.sistema.graficos.telas.TelaCriarEditarPessoa;
 import com.sistema.pessoa.Dono;
 import com.sistema.pessoa.Gerente;
+import com.sistema.pessoa.Pessoa;
 import com.sistema.pessoa.Vendedor;
 import com.sistema.validadores.Validar;
 
@@ -21,12 +23,19 @@ public class App {
         System.out.println( "\n\n" ); //espaçamento
         
         //Grafico graficos = new Grafico();
+        //TelaCriarEditarPessoa.CriarPessoa(new Dono(), null);
         //graficos.tela_principal_gerente();
         
         Gerenciador_sistema sistema = new Gerenciador_sistema();
         sistema.Start_sistema(); //inicia o sistema
 
-        System.out.println("Diretório base: " + System.getProperty("user.dir"));
+
+        /*
+        Dono carlos= new Dono("carlos", "34523523", 32, "car@gmail.com", "Aa1234");
+        Dono vazio= new Dono();
+        System.out.println("carlos: " + carlos.vazio());
+        System.out.println("vazio :" + vazio.vazio());
+        */
 
 
         System.out.println( "\n\n" ); //espaçamento

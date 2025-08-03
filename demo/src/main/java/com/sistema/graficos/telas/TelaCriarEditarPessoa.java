@@ -13,10 +13,10 @@ import com.sistema.validadores.Validar;
 
 public class TelaCriarEditarPessoa extends Grafico {
     
-    public static void CriarPessoa(Pessoa pessoaExistente, Runnable voltarTela) {
+    public static void CriarPessoa(Pessoa pessoaExistente, Runnable pegarPessoa, Runnable voltarTela) {
         
         limpar_tela();
-        frame.setTitle(pessoaExistente == null ? "Criar pessoa" : "Editar pessoa");
+        frame.setTitle(pessoaExistente.vazio() ? "Criar pessoa" : "Editar pessoa");
 
         JPanel panel = new JPanel(null);
         panel.setBounds(0, 0, tela_X, tela_y);
@@ -52,7 +52,7 @@ public class TelaCriarEditarPessoa extends Grafico {
         campoSenha.setBounds(x + wLabel, y, wCampo, h);
 
         // Preenchimento para edição
-        if (pessoaExistente != null) {
+        if (!pessoaExistente.vazio()) {
             campoNome.setText(pessoaExistente.getNome());
             campoCpf.setText(pessoaExistente.getCpf());
             campoIdade.setText(String.valueOf(pessoaExistente.getIdade()));
@@ -104,17 +104,14 @@ public class TelaCriarEditarPessoa extends Grafico {
                 return;
             }
             
-            if (pessoaExistente == null) {
-                Vendedor novo = new Vendedor(nome, cpf, idade, email, senha);
-                usuario.getFilial().getVendedores().add(novo);                                
-            } else {                
-                pessoaExistente.setNome(nome);                
-                pessoaExistente.setCpf(cpf);               
-                pessoaExistente.setIdade(idade);
-                pessoaExistente.setEmail(email);
-                pessoaExistente.setSenha(senha);
-            }
+                           
+            pessoaExistente.setNome(nome);                
+            pessoaExistente.setCpf(cpf);               
+            pessoaExistente.setIdade(idade);
+            pessoaExistente.setEmail(email);
+            pessoaExistente.setSenha(senha);
             
+            pegarPessoa.run();
             voltarTela.run(); // Volta para a tela anterior          
         });
 
