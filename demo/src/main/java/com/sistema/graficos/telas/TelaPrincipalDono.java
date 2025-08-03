@@ -8,6 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -37,6 +38,10 @@ public class TelaPrincipalDono extends Grafico {
         });
         panel.add(botaoVoltar);
 
+        JLabel titulo = new JLabel("bem vindo " + usuario.getPessoa().getNome());
+        titulo.setBounds(130, 10, 400, 30);
+        panel.add(titulo);
+                
         // Painel de botões (esquerda)
         JPanel painelBotoes = new JPanel();
         painelBotoes.setLayout(new BoxLayout(painelBotoes, BoxLayout.Y_AXIS));

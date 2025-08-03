@@ -3,6 +3,7 @@ package com.sistema.pessoa;
 import com.sistema.franquia.filial.Filial;
 import com.sistema.graficos.Grafico;
 import com.sistema.graficos.User;
+import com.sistema.graficos.telas.TelaPrincipalDono;
 
 public class Dono extends Pessoa {
     
@@ -23,7 +24,7 @@ public class Dono extends Pessoa {
 
     @Override
     public void MostrarTelaInicial() {
-        //TelaPrincipalDono.mostrar();
+        TelaPrincipalDono.mostrar();
     }
 
 

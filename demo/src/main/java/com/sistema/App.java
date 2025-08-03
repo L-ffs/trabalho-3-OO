@@ -7,6 +7,7 @@ import com.sistema.Gson.GsonUtil;
 import com.sistema.franquia.filial.Filial;
 import com.sistema.graficos.Grafico;
 import com.sistema.graficos.telas.TelaCriarEditarPessoa;
+import com.sistema.graficos.telas.TelaPrincipalDono;
 import com.sistema.pessoa.Dono;
 import com.sistema.pessoa.Gerente;
 import com.sistema.pessoa.Pessoa;
@@ -22,12 +23,13 @@ public class App {
         
         System.out.println( "\n\n" ); //espaçamento
         
-        //Grafico graficos = new Grafico();
+        Grafico graficos = new Grafico();
+        TelaPrincipalDono.mostrar();
         //TelaCriarEditarPessoa.CriarPessoa(new Dono(), null);
         //graficos.tela_principal_gerente();
         
-        Gerenciador_sistema sistema = new Gerenciador_sistema();
-        sistema.Start_sistema(); //inicia o sistema
+        //Gerenciador_sistema sistema = new Gerenciador_sistema();
+        //sistema.Start_sistema(); //inicia o sistema
 
 
         /*
