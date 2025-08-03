@@ -45,8 +45,7 @@ public class TelaPrincipalGerente extends Grafico {
             "Produtos da filial", 
             "Gerenciar vendedores", 
             "Ver informaçoes de vendas",
-            "Estoque de produtos",
-            "Notificações"
+            "editar vendas"
         };
 
         for (String nome : nomesBotoes) {
@@ -65,63 +64,57 @@ public class TelaPrincipalGerente extends Grafico {
                         // exemplo de ação: chamar tela de listagem
                         System.out.println("Produtos da filial");
                         TelaManipularProdutos.mostrar();
-                        // tela_vendas_filial();
                     });
-                    break;
+                break;
                 case "Gerenciar vendedores":
                     botao.addActionListener(e -> {
                         System.out.println("Ação: gerenciar vendedores");
                         TelaManipularVendedores.mostrar();
                     });
-                    break;
-                    case "Ver informaçoes de vendas":
+                break;
+                case "Ver informaçoes de vendas":
                     botao.addActionListener(e -> {
                         System.out.println("Ação: ver retificações");
                         TelaVisualisarCompradores.mostrar();
                     });
-                    break;
-                case "Estoque de produtos":
+                break;
+                case "editar vendas":
                 botao.addActionListener(e -> {
-                    System.out.println("Ação: estoque");
+                    TelaEdiçaoPedidos.mostrar();
                     // tela_estoque();
                 });
                 break;
-                case "Notificações":
-                botao.addActionListener(e -> {
-                    System.out.println("Ação: notificações");
-                    // tela_notificacoes();
-                    });
-                    break;
+                
                 }
-            }
+        }
             
-            // Painel de mensagens (direita)
+        // Painel de mensagens (direita)
             
-            JPanel painelMensagens = new JPanel();
-            painelMensagens.setLayout(new BoxLayout(painelMensagens, BoxLayout.Y_AXIS));
+        JPanel painelMensagens = new JPanel();
+        painelMensagens.setLayout(new BoxLayout(painelMensagens, BoxLayout.Y_AXIS));
             
-            JScrollPane scrollMensagens = new JScrollPane(painelMensagens);
-            scrollMensagens.setBounds(margemX * 2 + larguraColuna, margemY, larguraColuna, alturaTotal);
-            panel.add(scrollMensagens);
-            
-            // Adiciona algumas mensagens de exemplo
-            try {
-                for (Pedido_altereçao pedido : usuario.getFilial().getPedidos_alteracao()) {
-                    JTextArea area = new JTextArea(pedido.getMotivo() +"\nid do pedido: " + pedido.getVenda().getId());
-                    area.setLineWrap(true);
-                    area.setWrapStyleWord(true);
-                    area.setEditable(false);
-                    area.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-                    painelMensagens.add(area);
-                }
-            } catch (NullPointerException e) {
-                JTextArea area = new JTextArea("Nenhum pedido de alteração encontrado.");
+        JScrollPane scrollMensagens = new JScrollPane(painelMensagens);
+        scrollMensagens.setBounds(margemX * 2 + larguraColuna, margemY, larguraColuna, alturaTotal);
+        panel.add(scrollMensagens);
+        
+        // Adiciona algumas mensagens de exemplo
+        try {
+            for (Pedido_altereçao pedido : usuario.getFilial().getPedidos_alteracao()) {
+                JTextArea area = new JTextArea(pedido.getMotivo() +"\nid do pedido: " + pedido.getVenda().getId());
                 area.setLineWrap(true);
                 area.setWrapStyleWord(true);
                 area.setEditable(false);
                 area.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
                 painelMensagens.add(area);
             }
+        } catch (NullPointerException e) {
+            JTextArea area = new JTextArea("Nenhum pedido de alteração encontrado.");
+            area.setLineWrap(true);
+            area.setWrapStyleWord(true);
+            area.setEditable(false);
+            area.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+            painelMensagens.add(area);
+        }
         
         
 
