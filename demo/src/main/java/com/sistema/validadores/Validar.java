@@ -31,7 +31,7 @@ public class Validar {
         if (logavel) {
                 return true;
             }
-            return false;
+        return false;
     }
 
     public static boolean CPF(String cpf) { //modelo simplificado

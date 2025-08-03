@@ -53,11 +53,12 @@ public class TelaRegistrarVenda extends Grafico {
     botaoVoltar.addActionListener(e -> usuario.getPessoa().MostrarTelaInicial());
 
     // Preenche o comboBox com os produtos do estoque
-    Map<Produto, Integer> estoque = usuario.getFilial().getEstoque();
+    Map<String, Integer> estoque = usuario.getFilial().getEstoque();
     estoque= estoque == null ? Map.of() : estoque; // Evita NullPointerException
-    for (Produto produto : estoque.keySet()) {
-        if (estoque.get(produto) > 0) {
-            boxProduto.addItem(produto.getNome() + " - R$" + produto.getPreco());
+    for (String NomeProduto : estoque.keySet()) {
+        if (estoque.get(NomeProduto) > 0) {
+            Produto produto= usuario.getFilial().ProdutoPorNome(NomeProduto);
+            boxProduto.addItem(NomeProduto + " - R$" + produto.getPreco());
         }
     }
 

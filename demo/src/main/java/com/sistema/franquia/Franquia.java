@@ -53,6 +53,7 @@ public class Franquia {
     public boolean Email_existe(String email) {
         for (Pessoa funcionario : funcionarios) {
             if (funcionario.getEmail().equals(email)) {
+                System.out.println("validaçao email" + email + ":" +funcionario.getEmail());
                 return true;
             }
         }

@@ -67,12 +67,15 @@ public class TelaCriarEditarProduto extends Grafico {
                 if( usuario.getFilial().getEstoque() == null) {
                     usuario.getFilial().setEstoque(new HashMap<>());
                 }
-                usuario.getFilial().getEstoque().put(novo, quantidade);
+                usuario.getFilial().getEstoque().put(novo.getNome(), quantidade);
+                usuario.getFilial().getProdutos().add(novo);
             } else {
-                usuario.getFilial().getEstoque().remove(produtoExistente);
+                usuario.getFilial().getEstoque().remove(produtoExistente.getNome());
+                usuario.getFilial().getProdutos().remove(produtoExistente);
                 produtoExistente.setNome(nome);
                 produtoExistente.setPreco(preco);
-                usuario.getFilial().getEstoque().put(produtoExistente, quantidade);
+                usuario.getFilial().getEstoque().put(produtoExistente.getNome(), quantidade);
+                usuario.getFilial().getProdutos().add(produtoExistente);
             }
 
             TelaManipularProdutos.mostrar(); // Volta para tela anterior

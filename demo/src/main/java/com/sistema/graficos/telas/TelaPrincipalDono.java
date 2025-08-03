@@ -71,8 +71,7 @@ public class TelaPrincipalDono extends Grafico {
             botao.addActionListener(e -> {
                 switch (nome) {
                     case "Cadastrar nova filial":
-                        System.out.println("Ação: Cadastrar nova filial");
-                        // TelaCadastroFilial.mostrar(); // exemplo
+                        TelaManipularFilial.mostrar();
                         break;
                     case "Gerenciar gerentes":
                         System.out.println("Ação: Gerenciar gerentes");

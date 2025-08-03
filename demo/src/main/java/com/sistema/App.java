@@ -23,13 +23,13 @@ public class App {
         
         System.out.println( "\n\n" ); //espaçamento
         
-        Grafico graficos = new Grafico();
-        TelaPrincipalDono.mostrar();
+        //Grafico graficos = new Grafico();
+        
         //TelaCriarEditarPessoa.CriarPessoa(new Dono(), null);
         //graficos.tela_principal_gerente();
         
-        //Gerenciador_sistema sistema = new Gerenciador_sistema();
-        //sistema.Start_sistema(); //inicia o sistema
+        Gerenciador_sistema sistema = new Gerenciador_sistema();
+        sistema.Start_sistema(); //inicia o sistema
 
 
         /*

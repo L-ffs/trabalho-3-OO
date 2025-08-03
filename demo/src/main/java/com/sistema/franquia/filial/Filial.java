@@ -1,5 +1,6 @@
 package com.sistema.franquia.filial;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -18,14 +19,17 @@ public class Filial {
     private Gerente gerente;
     private List<Vendedor> vendedores= new ArrayList<>();
     private List<Contrato> contratos= new ArrayList<>();
-    private Map<Produto, Integer> estoque = new HashMap<>();
+
+    private Map<String, Integer> estoque = new HashMap<>();
+    private List<Produto> produtos= new ArrayList<>();
+
     private List<Pedido_altereçao> pedidos_alteracao = new ArrayList<>();
 
     
 
     public Filial(){}; //construtor vazio para o Gson
     public Filial(String endereco, Gerente gerente, ArrayList<Vendedor> vendedores,
-    ArrayList<Contrato> contratos, Map<Produto, Integer> estoque)
+    ArrayList<Contrato> contratos, Map<String, Integer> estoque)
     {
         this.endereco = endereco;
         this.gerente = gerente;
@@ -60,11 +64,17 @@ public class Filial {
     public void setContratos(List<Contrato> contratos) {
         this.contratos = contratos;
     }
-    public Map<Produto, Integer> getEstoque() {
+    public Map<String, Integer> getEstoque() {
         return estoque;
     }
-    public void setEstoque(Map<Produto, Integer> estoque) {
+    public void setEstoque(Map<String, Integer> estoque) {
         this.estoque = estoque;
+    }
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+    public void setProduto(List<Produto> produtos) {
+        this.produtos= produtos;
     }
     public String getNome() {
         return nome;
@@ -134,4 +144,18 @@ public class Filial {
         return cardInfoCompradores;
     }
     
+    public Produto ProdutoPorNome(String nome) {
+
+        try {
+            for (Produto produto : produtos) {
+                if (produto.getNome().equals(nome)){
+                    return produto;
+                }
+            }
+        } catch (Exception e) {
+            
+        }
+        return null;
+    }
+
 }

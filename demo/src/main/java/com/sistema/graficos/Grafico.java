@@ -99,8 +99,12 @@ public class Grafico {
     public static void fecharESalvar() {
         GsonUtil gsonUtil = new GsonUtil();
         try {
-            gsonUtil.salvarDonoJSON(usuario.getFranquia().getDono());
-            gsonUtil.salvarFiliaisJSON(usuario.getFranquia().getFiliais());
+            if (usuario.getFranquia().getDono() != null && !usuario.getFranquia().getDono().vazio()){
+                gsonUtil.salvarDonoJSON(usuario.getFranquia().getDono());
+            }//ifs para impedir deletar dados devido a erros de carregamento
+            if (usuario.getFranquia().getFiliais() != null && !usuario.getFranquia().getFiliais().isEmpty()) {
+                gsonUtil.salvarFiliaisJSON(usuario.getFranquia().getFiliais());
+            }
         } catch (Exception e) {
             System.out.println("Erro ao salvar os dados: " + e.getMessage());
         }

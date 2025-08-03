@@ -27,9 +27,9 @@ public class TelaManipularProdutos extends Grafico {
 
         // Lista de produtos (String) para exibição
         DefaultListModel<String> modeloLista = new DefaultListModel<>();
-        Map<Produto, Integer> estoque = usuario.getFilial().getEstoque() == null ? Map.of() : usuario.getFilial().getEstoque();
-        for (Produto p : estoque.keySet()) {
-            modeloLista.addElement(p.getNome() + " (Qtd: " + estoque.get(p) + ")");
+        Map<String, Integer> estoque = usuario.getFilial().getEstoque() == null ? Map.of() : usuario.getFilial().getEstoque();
+        for (String nomeProduto : estoque.keySet()) {
+            modeloLista.addElement(nomeProduto + " (Qtd: " + estoque.get(nomeProduto) + ")");
         }
 
         JList<String> listaProdutos = new JList<>(modeloLista);
@@ -52,12 +52,13 @@ public class TelaManipularProdutos extends Grafico {
         panel.add(botaoEditar);
         panel.add(botaoNovo);
 
-        // Adicionar ações (apenas esqueleto aqui, você pode completar com lógica real)
         botaoExcluir.addActionListener(e -> {
             int index = listaProdutos.getSelectedIndex();
             if (index >= 0) { // -1 se nao escolhido
-                Produto selecionado = (Produto) estoque.keySet().toArray()[index];
+                String selecionado = (String) estoque.keySet().toArray()[index];
+                Produto produto= usuario.getFilial().ProdutoPorNome(selecionado);
                 estoque.remove(selecionado);
+                usuario.getFilial().getProdutos().remove(produto);
                 modeloLista.remove(index);
             } else {
                 JOptionPane.showMessageDialog(frame, "Selecione um produto para excluir.");
@@ -67,7 +68,8 @@ public class TelaManipularProdutos extends Grafico {
         botaoEditar.addActionListener(e -> {
             int index = listaProdutos.getSelectedIndex();
             if (index >= 0) {
-                Produto selecionado = (Produto) estoque.keySet().toArray()[index];
+                String nomeSelecionado= (String) estoque.keySet().toArray()[index];
+                Produto selecionado = usuario.getFilial().ProdutoPorNome(nomeSelecionado);
                 // Aqui você pode chamar outra função para abrir a tela de edição
                 TelaCriarEditarProduto.mostrar(selecionado);
             } else {

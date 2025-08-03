@@ -1,1 +1,25 @@
-[]
+[
+  {
+    "nome": "filial jf",
+    "endereco": "rua em jf",
+    "gerente": {
+      "nome": "fabio",
+      "cpf": "22233344454",
+      "idade": 18,
+      "email": "gerente@gmail.com",
+      "senha": "Aa1234"
+    },
+    "vendedores": [],
+    "contratos": [],
+    "estoque": {
+      "carro": 10
+    },
+    "produtos": [
+      {
+        "nome": "carro",
+        "preco": 3000.0
+      }
+    ],
+    "pedidos_alteracao": []
+  }
+]
