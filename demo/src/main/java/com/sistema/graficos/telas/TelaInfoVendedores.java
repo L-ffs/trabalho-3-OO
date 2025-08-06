@@ -28,12 +28,15 @@ public class TelaInfoVendedores extends Grafico {
 
         
         Map<Vendedor, Double> totalVendido = new HashMap<>();
-        List<Contrato> contratos = usuario.getFilial().getContratos();
-        if (contratos != null) {
+        
+        try {
+            List<Contrato> contratos = usuario.getFilial().getContratos();
             for (Contrato c : contratos) {
                 Vendedor v = c.getVendedor();
                 totalVendido.put(v, totalVendido.getOrDefault(v, 0.0) + c.getPreco());
             }
+        } catch (NullPointerException e) {
+            List<Contrato> contratos= new ArrayList<>();
         }
 
         // Ordena vendedores por valor vendido
@@ -70,7 +73,7 @@ public class TelaInfoVendedores extends Grafico {
 
         JButton botaoVoltar = new JButton("← Voltar");
         botaoVoltar.setBounds(Pcent('x', 80), Pcent('y', 80), 120, 35);
-        botaoVoltar.addActionListener(e -> TelaPrincipalGerente.mostrar());
+        botaoVoltar.addActionListener(e -> TelaPrincipalDono.mostrar());
         panel.add(botaoVoltar);
 
         frame.add(panel);

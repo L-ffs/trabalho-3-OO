@@ -3,10 +3,10 @@
     "nome": null,
     "endereco": "Rua A, 123",
     "gerente": {
-      "nome": "gerente",
-      "cpf": "11122211121",
-      "idade": 21,
-      "email": "g@g.c",
+      "nome": "roberto",
+      "cpf": "12345678900",
+      "idade": 28,
+      "email": "gerente@gerente.com",
       "senha": "Aa1234"
     },
     "vendedores": [

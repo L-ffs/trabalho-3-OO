@@ -54,7 +54,9 @@ public class TelaPrincipalDono extends Grafico {
         // Botões do dono
         String[] nomesBotoes = {
             "Cadastrar nova filial", 
-            "Gerenciar gerentes"
+            "Gerenciar gerentes",
+            "ranking vendedores",
+            "informaçoes das filiais"
         };
 
         for (String nome : nomesBotoes) {
@@ -72,8 +74,13 @@ public class TelaPrincipalDono extends Grafico {
                         TelaManipularFilial.mostrar();
                         break;
                     case "Gerenciar gerentes":
-                        System.out.println("Ação: Gerenciar gerentes");
                         TelaGerenciarGerentes.mostrar();
+                        break;
+                    case "ranking vendedores":
+                        TelaInfoVendedores.mostrar();
+                        break;
+                    case "informaçoes das filiais":
+                        TelaInfoFiliais.mostrar();
                         break;
                     
                     default:

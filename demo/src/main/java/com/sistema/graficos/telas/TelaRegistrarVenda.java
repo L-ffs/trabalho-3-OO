@@ -84,6 +84,11 @@ public class TelaRegistrarVenda extends Grafico {
         // Cria e registra o contrato
         Contrato novaVenda = new Contrato(comprador, (Vendedor)usuario.getPessoa(), produto, preco);
         usuario.getFilial().getContratos().add(novaVenda);
+        
+        Map<String, Integer> estoq= usuario.getFilial().getEstoque();
+        int qntd_produto= estoq.getOrDefault(produto, 0);
+        estoq.put(produto, qntd_produto-1);
+
         JOptionPane.showMessageDialog(frame, "Venda registrada com sucesso!");
 
         usuario.getPessoa().MostrarTelaInicial();
