@@ -18,6 +18,9 @@ import com.sistema.graficos.telas.TelaCriarEditarPessoa;
 import com.sistema.graficos.telas.TelaLoginPrincipal;
 import com.sistema.pessoa.*;
 
+//202465558C Wesley Santos de Lima
+//202465505B Luiz Fernando Ferreira Silva
+
 public class Gerenciador_sistema {
 
    

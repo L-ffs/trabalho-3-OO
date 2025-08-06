@@ -7,6 +7,9 @@ import com.sistema.franquia.Franquia;
 import com.sistema.graficos.User;
 import com.sistema.pessoa.Pessoa;
 
+//202465558C Wesley Santos de Lima
+//202465505B Luiz Fernando Ferreira Silva
+
 public class Validar {
     
     //public static boolean

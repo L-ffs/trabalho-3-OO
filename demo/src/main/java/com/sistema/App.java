@@ -14,7 +14,8 @@ import com.sistema.pessoa.Pessoa;
 import com.sistema.pessoa.Vendedor;
 import com.sistema.validadores.Validar;
 
-
+//202465558C Wesley Santos de Lima
+//202465505B Luiz Fernando Ferreira Silva
 
 public class App {
 

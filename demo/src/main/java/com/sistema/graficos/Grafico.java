@@ -20,6 +20,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Insets;
 
+//202465558C Wesley Santos de Lima
+//202465505B Luiz Fernando Ferreira Silva
 
 public class Grafico {
     

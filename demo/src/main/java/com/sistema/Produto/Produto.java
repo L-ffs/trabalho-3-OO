@@ -2,6 +2,9 @@ package com.sistema.Produto;
 
 import java.util.Objects;
 
+//202465558C Wesley Santos de Lima
+//202465505B Luiz Fernando Ferreira Silva
+
 public class Produto {
     
     private String nome;

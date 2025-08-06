@@ -10,6 +10,9 @@ import com.sistema.graficos.Grafico;
 import com.sistema.graficos.User;
 import com.sistema.pessoa.*;
 
+//202465558C Wesley Santos de Lima
+//202465505B Luiz Fernando Ferreira Silva
+
 public class Franquia {
 
     private Dono dono;

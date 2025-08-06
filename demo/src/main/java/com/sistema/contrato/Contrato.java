@@ -2,6 +2,9 @@ package com.sistema.contrato;
 
 import com.sistema.pessoa.Vendedor;
 
+//202465558C Wesley Santos de Lima
+//202465505B Luiz Fernando Ferreira Silva
+
 public class Contrato {
     private static int idCounter = 0;  //contador estatico para ids unicos
     private int id;  //id unico do contrato
