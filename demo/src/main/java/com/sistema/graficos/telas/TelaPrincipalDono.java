@@ -56,7 +56,8 @@ public class TelaPrincipalDono extends Grafico {
             "Cadastrar nova filial", 
             "Gerenciar gerentes",
             "ranking vendedores",
-            "informaçoes das filiais"
+            "informaçoes das filiais",
+            "alterar suas informaçoes"
         };
 
         for (String nome : nomesBotoes) {
@@ -81,6 +82,10 @@ public class TelaPrincipalDono extends Grafico {
                         break;
                     case "informaçoes das filiais":
                         TelaInfoFiliais.mostrar();
+                        break;
+                    case "alterar suas informaçoes":
+                        Runnable naoFazerNada= () -> {};
+                        TelaCriarEditarPessoa.CriarPessoa(usuario.getPessoa(), naoFazerNada, TelaPrincipalDono::mostrar);
                         break;
                     
                     default:
