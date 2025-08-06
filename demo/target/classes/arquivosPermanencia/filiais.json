@@ -1,25 +1,26 @@
 [
   {
-    "nome": "filial jf",
-    "endereco": "rua em jf",
+    "nome": null,
+    "endereco": "Rua A, 123",
     "gerente": {
-      "nome": "fabio",
-      "cpf": "22233344454",
-      "idade": 18,
-      "email": "gerente@gmail.com",
+      "nome": "gerente",
+      "cpf": "11122211121",
+      "idade": 21,
+      "email": "g@g.c",
       "senha": "Aa1234"
     },
-    "vendedores": [],
-    "contratos": [],
-    "estoque": {
-      "carro": 10
-    },
-    "produtos": [
+    "vendedores": [
       {
-        "nome": "carro",
-        "preco": 3000.0
+        "nome": "joao",
+        "cpf": "09876543211",
+        "idade": 31,
+        "email": "vendedor@vendedor.com",
+        "senha": "Aa1234"
       }
     ],
+    "contratos": [],
+    "estoque": {},
+    "produtos": [],
     "pedidos_alteracao": []
   }
 ]

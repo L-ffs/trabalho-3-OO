@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import com.sistema.franquia.filial.Filial;
 import com.sistema.graficos.Grafico;
 
 public class TelaPrincipalDono extends Grafico {
@@ -53,10 +54,7 @@ public class TelaPrincipalDono extends Grafico {
         // Botões do dono
         String[] nomesBotoes = {
             "Cadastrar nova filial", 
-            "Gerenciar gerentes", 
-            "Visualizar relatórios",
-            "Ver estatísticas globais",
-            "Configurações do sistema"
+            "Gerenciar gerentes"
         };
 
         for (String nome : nomesBotoes) {
@@ -75,20 +73,9 @@ public class TelaPrincipalDono extends Grafico {
                         break;
                     case "Gerenciar gerentes":
                         System.out.println("Ação: Gerenciar gerentes");
-                        // TelaGerenciarGerentes.mostrar();
+                        TelaGerenciarGerentes.mostrar();
                         break;
-                    case "Visualizar relatórios":
-                        System.out.println("Ação: Visualizar relatórios");
-                        // TelaRelatorios.mostrar();
-                        break;
-                    case "Ver estatísticas globais":
-                        System.out.println("Ação: Ver estatísticas globais");
-                        // TelaEstatisticasGlobais.mostrar();
-                        break;
-                    case "Configurações do sistema":
-                        System.out.println("Ação: Configurações do sistema");
-                        // TelaConfiguracoes.mostrar();
-                        break;
+                    
                     default:
                         System.out.println("Ação não definida: " + nome);
                 }
@@ -106,13 +93,28 @@ public class TelaPrincipalDono extends Grafico {
         // Conteúdo exemplo
         
         //FAZER UM LOOP COM TODAS FILIAIS E VERIFICAR SE GETENTE == NULL OU .VAZIO()
-        JTextArea info = new JTextArea("Mensagens, notificações ou gráficos poderão ser exibidos aqui.");
-        info.setLineWrap(true);
-        info.setWrapStyleWord(true);
-        info.setEditable(false);
-        info.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        painelLateral.add(info);
+        try {
+            for(Filial f : usuario.getFranquia().getFiliais()) {
+                if (f.getGerente() == null) {
 
+                    JTextArea info = new JTextArea("filial " + f.getNome() + ". endereço " + f.getEndereco() + "nao tem gerente.");
+                    info.setLineWrap(true);
+                    info.setWrapStyleWord(true);
+                    info.setEditable(false);
+                    info.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+                    painelLateral.add(info);
+
+                }
+            }
+        } catch (NullPointerException e) {
+            JTextArea info = new JTextArea("nao ha filiais cadastradas");
+            info.setLineWrap(true);
+            info.setWrapStyleWord(true);
+            info.setEditable(false);
+            info.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+            painelLateral.add(info);
+        }
+        
         frame.add(panel);
         atualizar_tela();
     }
