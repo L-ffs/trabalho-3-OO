@@ -1,6 +1,5 @@
 [
   {
-    "nome": null,
     "endereco": "Rua A, 123",
     "gerente": {
       "nome": "roberto",
@@ -18,9 +17,7 @@
         "senha": "Aa1234"
       }
     ],
-    "contratos": [],
-    "estoque": {},
-    "produtos": [],
-    "pedidos_alteracao": []
+    "contratos": null,
+    "estoque": null
   }
 ]
